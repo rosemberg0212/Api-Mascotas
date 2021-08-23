@@ -20,19 +20,39 @@ const crearMascota = async(req, res)=>{
 	res.json(mascota);
 }
 
-const obtenerMascota = (req, res)=>{
+const obtenerMascota = async(req, res)=>{
 
-	res.json({msg: 'get'})
+	const mascotas = await Mascota.find({estado: true})
+		.populate('usuario','nombre')
+
+	res.json({mascotas})
 }
 
-const actualizarMascota = (req, res)=>{
+const actualizarMascota = async(req, res)=>{
 
-	res.json({msg: 'put'})
+	const {id} = req.params;
+
+    const {estado, usuario, ...resto} = req.body
+
+    resto.nombre = resto.nombre.toUpperCase();
+    resto.usuario = req.usuario._id;
+
+    const mascota = await Mascota.findByIdAndUpdate(id, resto, {new: true})
+
+    res.json({
+        mascota
+    })
 }
 
-const borrarMascota = (req, res)=>{
+const borrarMascota = async(req, res)=>{
 
-	res.json({msg: 'delete'})
+	const {id} = req.params; 
+
+    const mascota = await Mascota.findByIdAndUpdate(id, {estado:false})
+
+    res.json({
+        mascota
+    });
 }
 
 module.exports = {
