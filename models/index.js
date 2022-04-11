@@ -1,9 +1,9 @@
 const Server = require('./server');
-const Mascota = require('./mascota');
 const Usuario = require('./usuario')
+const Cita = require('./cita')
 
 module.exports = {
 	Server,
-	Mascota,
-	Usuario
+	Usuario,
+	Cita
 }

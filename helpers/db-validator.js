@@ -1,5 +1,5 @@
 const Role = require('../models/rol')
-const {Usuario, Mascota} = require('../models/index')
+const {Usuario, Mascota, Cita} = require('../models/index')
 
 //Verificar si el correo existe
 const correoExiste = async (correo = '')=>{
@@ -23,8 +23,16 @@ const mascotaExiste = async (id)=>{
     }
 }
 
+const citaExiste = async (id)=>{
+    const citaEx = await Cita.findById(id)
+    if(!citaEx){
+        throw new Error(`El id ${id} no existe`)
+    }
+}
+
 module.exports = {
 	correoExiste,
 	usuarioExiste,
-    mascotaExiste
+    mascotaExiste,
+    citaExiste
 }

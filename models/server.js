@@ -10,7 +10,7 @@ class Server {
         this.path = {
             usuarios: '/api/usuarios',
             auth:     '/api/auth',
-            mascotas: '/api/mascotas'
+            citas: '/api/citas'
         }
 
         //conectar BD
@@ -41,7 +41,7 @@ class Server {
     routes(){
         this.app.use(this.path.usuarios, require('../routes/user'))
         this.app.use(this.path.auth, require('../routes/auth'))
-        this.app.use(this.path.mascotas, require('../routes/mascotas'))
+        this.app.use(this.path.citas, require('../routes/citas'))
     }
 
     listem(){
