@@ -38,7 +38,7 @@ const usuariosPut = async (req, res = response)=>{
 const usuariosPost = async (req, res = response)=>{
 
 
-    const {nombre, correo, password, rol} = req.body;
+    const {nombre, correo, password, rol, celular} = req.body;
     const usuario = new Usuario({nombre, correo, password, rol});
 
     //Encriptar la contraseña
