@@ -1,12 +1,14 @@
 const {Router} = require('express');
 const {check} = require('express-validator');
-const { usuariosGet, usuariosPut, usuariosPost, usuariosDelete } = require('../controllers/user');
+const { usuariosGet, usuariosPut, usuariosPost, usuariosDelete, usuarioGetById } = require('../controllers/user');
 const {validarCampos} = require('../middlewares/validar-campos')
 const {correoExiste, usuarioExiste} = require('../helpers/db-validator')
 const router = Router();
 
 
 router.get('/', usuariosGet);
+
+router.get('/:id', usuarioGetById);
 
 router.put('/:id',[
 	check('id','No es un ID valido').isMongoId(),

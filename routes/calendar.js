@@ -3,9 +3,10 @@ const {check} = require('express-validator');
 const {  
     crearCita,
 	obtenerCitas,
-	obtenerCitasCard
-	// actualizarCitas,
-	// borrarCitas
+	obtenerCitasCard,
+	calendarDelete,
+	calendarPut,
+	obtenerCitasUser
 } = require('../controllers/calendar');
 const {validarCampos} = require('../middlewares/validar-campos')
 const {validarJWT} = require('../middlewares/validar-jwt')
@@ -15,12 +16,25 @@ const router = Router();
 
 router.get('/',obtenerCitas);
 router.get('/car',obtenerCitasCard);
-
-obtenerCitasCard
+router.get('/user',[
+	validarJWT
+],obtenerCitasUser);
 
 router.post('/',[
 	validarJWT
 ],crearCita);
+
+router.delete('/:id',[
+	check('id','No es un ID valido').isMongoId(),
+	validarJWT
+],calendarDelete);
+
+router.put('/:id',[
+	check('id','No es un ID valido').isMongoId(),
+	validarJWT
+],calendarPut);
+
+
 
 
 module.exports = router;

@@ -31,9 +31,46 @@ const obtenerCitas = async(req, res)=>{
 const obtenerCitasCard = async(req, res)=>{
 
 	const calendar = await Calendar.find()
-		// .populate('usuario','nombre')
+		.populate('usuario','nombre') 
 
 	res.send(calendar)
+}
+
+const obtenerCitasUser = async(req, res)=>{
+
+	const calendar = await Calendar.find({usuario: req.usuario, estado: true})
+		.populate('usuario','nombre') 
+
+	res.json({
+        calendar
+    });
+}
+
+const calendarDelete = async (req, res)=>{  
+
+    const {id} = req.params; 
+
+    //borrar fisicamente
+    const calendar = await Calendar.findByIdAndDelete(id);
+
+    // const calendar = await Calendar.findByIdAndUpdate(id, {estado:false})
+
+    res.json({
+        calendar
+    });
+}
+
+const calendarPut = async (req, res = response)=>{
+
+    const {id} = req.params;
+    const {_id, ...resto} = req.body
+
+
+    const calendar = await Calendar.findByIdAndUpdate(id, resto)
+
+    res.json({
+        calendar
+    });
 }
 
 
@@ -41,5 +78,8 @@ const obtenerCitasCard = async(req, res)=>{
 module.exports = {
 	obtenerCitas,
     crearCita,
-	obtenerCitasCard
+	obtenerCitasCard,
+	calendarDelete,
+	calendarPut,
+	obtenerCitasUser
 }
